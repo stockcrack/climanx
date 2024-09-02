@@ -35,11 +35,15 @@ def generate_image(prompt_chain):
         st.sidebar.write(
             f"The prompt was too long and has been shortened to the following: {new_prompt}"
         )
-    response = client.images.generate(
-        prompt=new_prompt, n=1, size="1024x1024", model="dall-e-3"
-    )
-    image_url = response.data[0].url
-    return Image.open(BytesIO(requests.get(image_url).content))
+    try:
+        response = client.images.generate(
+            prompt=new_prompt, n=1, size="1024x1024", model="dall-e-3"
+        )
+        image_url = response.data[0].url
+        return Image.open(BytesIO(requests.get(image_url).content))
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        return None
 
 
 # Get the list of YAML files from the "questions" subdirectory
@@ -171,9 +175,10 @@ if (
 
     st.session_state.drawing_style = drawing_style.lower()
     st.session_state.current_question = 0
-    st.session_state.image_history = [
-        f'Make a {drawing_style} drawing.  {question_data["initial_image_prompt"]}',
-    ]
+    st.session_state.initial_prompt = (
+        f'Make a {drawing_style} drawing.  {question_data["initial_image_prompt"]}'
+    )
+    st.session_state.image_history = [st.session_state.initial_prompt]
     st.session_state.responses = []
     st.session_state.question_data = question_data
     st.session_state.yaml_path = yaml_path
@@ -183,9 +188,11 @@ if (
         generated_image = generate_image(
             f"Make a {drawing_style} drawing.  {st.session_state.image_history}"
         )
-        st.session_state.current_image = generated_image
+        if generated_image is not None:
+            st.session_state.current_image = generated_image
 
     st.sidebar.write("Here is an image to contemplate to start your journey.")
+    st.sidebar.write(st.session_state.initial_prompt)
     st.sidebar.write(
         "Let's begin!  After every question, select the emotion that resonates with you the most."
     )
@@ -213,14 +220,17 @@ if st.session_state.current_question < len(st.session_state.questions):
             with st.spinner(f"Creating image for {response['emotion']}..."):
                 st.sidebar.write(f"Creating image for {response['emotion']}...")
                 generated_image = generate_image(prompt)
-            st.image(generated_image, caption=response["emotion"])
-            st.write(prompt)
-            emo = response["emotion"]
-            st.button(
-                emo,
-                on_click=select_image,
-                args=(emo, prompt, generated_image, response),
-            )
+            if generated_image is not None:
+                st.image(generated_image, caption=response["emotion"])
+                st.write(prompt)
+                emo = response["emotion"]
+                st.button(
+                    emo,
+                    on_click=select_image,
+                    args=(emo, prompt, generated_image, response),
+                )
+            else:
+                st.error("An error occurred while generating the image.")
 
 else:
     # Show final image and summary
@@ -228,12 +238,19 @@ else:
         "Thank you for completing the journey together. Here is the final image representing your journey:"
     )
 
-    st.image(st.session_state.current_image, caption="Your Climate Anxiety Reflection")
+    if st.session_state.current_image is not None:
+        st.image(
+            st.session_state.current_image, caption="Your Climate Anxiety Reflection"
+        )
 
     # Show summary of emotions
     st.sidebar.write("### Your Emotional Journey")
-    for i, response in enumerate(st.session_state.responses):
-        st.sidebar.write(f"**Question {i+1}**: {response['emotion']}")
+    for i, (question, response) in enumerate(
+        zip(st.session_state.questions, st.session_state.responses)
+    ):
+        st.sidebar.write(
+            f"**Question {i+1}**: {question['question']} => {response['emotion']}"
+        )
 
     # Save image option
     st.button("Save Image", on_click=save_image, args=(st.session_state.current_image,))
