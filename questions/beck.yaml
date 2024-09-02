@@ -1,0 +1,28 @@
+initial_image_prompt: "There is a sandy shore with waves lapping at the edge, and a few clouds in the sky. The sun is shining, casting a glow over the scene."
+questions:
+  - question: "Do you ever experience numbness or tingling when you think about climate change?"
+    responses:
+      - emotion: "Numbness"
+        prompt: "A fog creeps in from the edges, blurring the landscape and dulling colors."
+      - emotion: "Tingling"
+        prompt: "The water shimmers, with small, bright reflections on the surface."
+      - emotion: "Indifference"
+        prompt: "Desaturate the colors, making the scene appear more muted and still."
+
+  - question: "Do you have a fear that the worst could happen because of climate change?"
+    responses:
+      - emotion: "Fear"
+        prompt: "The clouds are dark and threatening and the waves are large, with occasional flashes of lightning."
+      - emotion: "Cautious"
+        prompt: "The clouds are thick and the light is muted."
+      - emotion: "Optimistic"
+        prompt: "Break the clouds open to reveal more sunlight, with the water calming down."
+
+  - question: "Do you find it difficult to relax when you think about the future of the environment?"
+    responses:
+      - emotion: "Restless"
+        prompt: "There is restless wind, with leaves and debris blowing across the landscape."
+      - emotion: "Calm"
+        prompt: "There is a warm, soothing glow to the sunlight filtering through the clouds."
+      - emotion: "Indifferent"
+        prompt: "There is some litter blowing across the beach."

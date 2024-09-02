@@ -1,0 +1,19 @@
+initial_image_prompt: "A lake surrounded by greenery. The water is calm, reflecting the sky above, and a few birds are flying in the distance."
+questions:
+  - question: "How often do you feel nervous or jittery when thinking about climate change?"
+    responses:
+      - emotion: "Anxious"
+        prompt: "There is a dark thundercloud over the lake, with ripples disturbing the calm water.  The mood is tense and foreboding."
+      - emotion: "Calm"
+        prompt: "The sky is clear, and add gentle ripples on the lake to signify a light breeze.  The mood is peaceful and serene."
+      - emotion: "Neutral"
+        prompt: "There are some scattered clouds in the sky, keeping the water calm and the scene balanced."
+
+  - question: "Do you find it hard to relax when you hear about climate-related news? Do you feel tense or restless?"
+    responses:
+      - emotion: "Tense"
+        prompt: "There are strong winds, causing visible waves in the lake."
+      - emotion: "Relaxed"
+        prompt: "Sunlight is breaking through the clouds, calming the water."
+      - emotion: "Worried"
+        prompt: "The clouds are intense, with a light drizzle starting over the scene."
