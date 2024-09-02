@@ -6,7 +6,7 @@ questions:
         prompt: "A fog creeps in from the edges, blurring the landscape and dulling colors."
       - emotion: "Tingling"
         prompt: "The water shimmers, with small, bright reflections on the surface."
-      - emotion: "Indifference"
+      - emotion: "Nothing"
         prompt: "Desaturate the colors, making the scene appear more muted and still."
 
   - question: "Do you have a fear that the worst could happen because of climate change?"
@@ -18,11 +18,20 @@ questions:
       - emotion: "Optimistic"
         prompt: "Break the clouds open to reveal more sunlight, with the water calming down."
 
-  - question: "Do you find it difficult to relax when you think about the future of the environment?"
+  - question: "How do you feel when you think about the future of the environment?"
     responses:
-      - emotion: "Restless"
-        prompt: "There is restless wind, with leaves and debris blowing across the landscape."
+      - emotion: "Uneasy"
+        prompt: "There is a restless wind, with leaves and debris blowing across the landscape."
       - emotion: "Calm"
         prompt: "There is a warm, soothing glow to the sunlight filtering through the clouds."
       - emotion: "Indifferent"
         prompt: "There is some litter blowing across the beach."
+  
+  - question: "How do you feel when you think about taking action on climate change?"
+    responses:
+      - emotion: "Guilty"
+        prompt: "The scene is littered with trash, with dark clouds overhead."
+      - emotion: "Excited"
+        prompt: "The scene is clean and bright, with a rainbow in the sky."
+      - emotion: "Indifferent"
+        prompt: "There are no visible signs of human impact."
