@@ -1,4 +1,4 @@
-initial_image_prompt: "There is a sandy shore with waves lapping at the edge, and a few clouds in the sky. The sun is shining, casting a glow over the scene."
+initial_image_prompt: "There is a sandy shore with waves lapping at the edge, and a few clouds in the sky. There is a beachhouse, and a sailboat on the water, and birds in the sky.  The sun is shining, casting a glow over the scene."
 questions:
   - question: "Do you ever experience numbness or tingling when you think about climate change?"
     responses:
@@ -12,26 +12,26 @@ questions:
   - question: "Do you have a fear that the worst could happen because of climate change?"
     responses:
       - emotion: "Fear"
-        prompt: "The clouds are dark and threatening and the waves are large, with occasional flashes of lightning."
+        prompt: "The clouds are dark and threatening and the waves are large, with occasional flashes of lightning.  The sailboat is in distress."
       - emotion: "Cautious"
-        prompt: "The clouds are thick and the light is muted."
+        prompt: "The clouds are thick and the light is muted.  The sailboat is anchored, and the birds are huddled together."
       - emotion: "Optimistic"
-        prompt: "Break the clouds open to reveal more sunlight, with the water calming down."
+        prompt: "Break the clouds open to reveal more sunlight, with the water calming down.  The sailboat is sailing smoothly."
 
   - question: "How do you feel when you think about the future of the environment?"
     responses:
       - emotion: "Uneasy"
-        prompt: "There is a restless wind, with leaves and debris blowing across the landscape."
+        prompt: "There is a restless wind, with leaves and debris blowing across the beach.  The birds are alarmed."
       - emotion: "Calm"
-        prompt: "There is a warm, soothing glow to the sunlight filtering through the clouds."
+        prompt: "There is a warm, soothing glow to the sunlight filtering through the clouds.  The birds are peaceful."
       - emotion: "Indifferent"
-        prompt: "There is some litter blowing across the beach."
+        prompt: "There is some litter blowing across the beach.  The birds don't seem to notice anything.
   
   - question: "How do you feel when you think about taking action on climate change?"
     responses:
       - emotion: "Guilty"
-        prompt: "The scene is littered with trash, with dark clouds overhead."
+        prompt: "The scene is littered with trash, with dark clouds overhead.  The beachhouse looks dilapidated."
       - emotion: "Excited"
-        prompt: "The scene is clean and bright, with a rainbow in the sky."
+        prompt: "The scene is clean and bright, with a rainbow in the sky. There is a party at the beachouse."
       - emotion: "Indifferent"
-        prompt: "There are no visible signs of human impact."
+        prompt: "There are no visible signs of human impact.  THe beachhouse is abandoned and the sailboat is adrift."

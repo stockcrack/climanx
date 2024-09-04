@@ -12,6 +12,13 @@ load_dotenv()
 
 # Load API key
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+STABILITY_API_KEY = os.getenv("STABILITY_API_KEY")
+
+STABILITY_ENDPOINTS = {
+    "Stable Diffusion 3": "https://api.stability.ai/v2beta/stable-image/generate/sd3",
+    "Stable Image Core": "https://api.stability.ai/v2beta/stable-image/generate/core",
+    "Stable Image Ultra": "https://api.stability.ai/v2beta/stable-image/generate/ultra",
+}
 
 # Directory where YAML files are stored
 questions_directory = "questions"
@@ -23,14 +30,97 @@ def load_questions(yaml_file):
         return yaml.safe_load(file)
 
 
+def ensure_prompt(prompt: str, max_length: int = 1024) -> str:
+    """
+    Ensure the prompt is less than or equal to max_length characters.
+    If the prompt exceeds the max_length, ask OpenAI to summarize it.
+
+    Parameters:
+    - prompt (str): The original prompt to be checked and potentially shortened.
+    - max_length (int): The maximum allowed length for the prompt (default is 1024 characters).
+
+    Returns:
+    - str: The original prompt if within the limit, otherwise a summarized version.
+    """
+    if len(prompt) <= max_length:
+        return prompt
+
+    # If the prompt is too long, request a summary
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant who accurately summarizes long prompts for generating images.",
+            },
+            {
+                "role": "user",
+                "content": f"The following text is too long for the model to process. Please summarize it in a concise and clear manner, ensuring it retains the key details:\n\n{prompt}",
+            },
+        ],
+    )
+
+    # Extract the summary from the response
+    summarized_prompt = response.choices[0].message.content.strip()
+
+    # Ensure the summarized prompt is still within the max_length limit
+    if len(summarized_prompt) > max_length:
+        raise ValueError(
+            "The summarized prompt is still too long. Try adjusting the summary parameters."
+        )
+
+    return summarized_prompt
+
+
 # MAGIC_PROMPT = "I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS: "
 MAGIC_PROMPT = ""
 
 
-# Function to generate or modify an image with DALL-E
 def generate_image(prompt_chain):
+    if st.session_state.ai == "DALL-E 3":
+        return generate_image_dalle3(prompt_chain)
+    elif st.session_state.ai.startswith("Stable"):
+        return generate_image_stability(prompt_chain)
+    else:
+        st.sidebar.write("Please select an AI model.")
+        return None
+
+
+def generate_image_stability(prompt_chain):
     full_prompt = MAGIC_PROMPT + " ".join(prompt_chain)
-    new_prompt = ensure_prompt_length(full_prompt)
+    new_prompt = ensure_prompt(full_prompt, max_length=10000)
+    if new_prompt != full_prompt:
+        st.sidebar.write(
+            f"The prompt was too long and has been shortened to the following: {new_prompt}"
+        )
+    try:
+        response = requests.post(
+            STABILITY_ENDPOINTS[st.session_state.ai],
+            headers={
+                "authorization": f"Bearer {STABILITY_API_KEY}",
+                "accept": "image/*",
+            },
+            files={"none": ""},
+            data={
+                "prompt": new_prompt,
+                "output_format": "jpeg",
+                "model": "sd3-large",
+            },
+        )
+
+        if response.status_code == 200:
+            return Image.open(BytesIO(response.content))
+        else:
+            raise Exception(str(response.json()))
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        return None
+
+
+# Function to generate or modify an image with DALL-E
+def generate_image_dalle3(prompt_chain):
+    full_prompt = MAGIC_PROMPT + " ".join(prompt_chain)
+    new_prompt = ensure_prompt(full_prompt, max_length=1000)
     if new_prompt != full_prompt:
         st.sidebar.write(
             f"The prompt was too long and has been shortened to the following: {new_prompt}"
@@ -77,48 +167,6 @@ def start_over():
     st.session_state.current_question = -1
 
 
-def ensure_prompt_length(prompt, max_length=1024):
-    """
-    Ensure the prompt is less than or equal to max_length characters.
-    If the prompt exceeds the max_length, ask OpenAI to summarize it.
-
-    Parameters:
-    - prompt (str): The original prompt to be checked and potentially shortened.
-    - max_length (int): The maximum allowed length for the prompt (default is 1024 characters).
-
-    Returns:
-    - str: The original prompt if within the limit, otherwise a summarized version.
-    """
-    if len(prompt) <= max_length:
-        return prompt
-
-    # If the prompt is too long, request a summary
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {
-                "role": "system",
-                "content": "You are a helpful assistant who accurately summarizes long prompts for generating images.",
-            },
-            {
-                "role": "user",
-                "content": f"The following text is too long for the model to process. Please summarize it in a concise and clear manner, ensuring it retains the key details:\n\n{prompt}",
-            },
-        ],
-    )
-
-    # Extract the summary from the response
-    summarized_prompt = response.choices[0].message.content.strip()
-
-    # Ensure the summarized prompt is still within the max_length limit
-    if len(summarized_prompt) > max_length:
-        raise ValueError(
-            "The summarized prompt is still too long. Try adjusting the summary parameters."
-        )
-
-    return summarized_prompt
-
-
 # Display Butterfly Assistant
 st.sidebar.image("butterfly.png", use_column_width=True)
 st.sidebar.write(
@@ -134,6 +182,20 @@ if (
     "current_question" not in st.session_state
     or st.session_state.current_question == -1
 ):
+    # Choose the AI
+    ai_choices = list(STABILITY_ENDPOINTS.keys()) + ["DALL-E 3"]
+
+    selected_ai = st.sidebar.selectbox(
+        "Choose an AI model:",
+        ai_choices,
+        None,
+    )
+    if not selected_ai:
+        st.sidebar.write("Please select an AI model.")
+        st.stop()
+
+    st.session_state.ai = selected_ai
+
     # Get the list of YAML files
     yaml_files = get_yaml_files(questions_directory)
     selected_yaml = st.sidebar.selectbox("Choose a questionnaire:", yaml_files, None)
@@ -183,7 +245,7 @@ if (
     st.session_state.question_data = question_data
     st.session_state.yaml_path = yaml_path
     st.session_state.questions = question_data["questions"]
-    with st.spinner("Generating initial image..."):
+    with st.spinner(f"Generating initial image with {st.session_state.ai}..."):
         st.sidebar.write("I am creating an initial image for you to ponder...")
         generated_image = generate_image(
             f"Make a {drawing_style} drawing.  {st.session_state.image_history}"
@@ -215,10 +277,14 @@ if st.session_state.current_question < len(st.session_state.questions):
                 + " "
                 + response["prompt"]
                 + " "
-                + f"I feel {response['emotion']}."
+                + f"The viewer should feel {response['emotion'].lower()}."
             )
-            with st.spinner(f"Creating image for {response['emotion']}..."):
-                st.sidebar.write(f"Creating image for {response['emotion']}...")
+            with st.spinner(
+                f"Creating image for {response['emotion'].lower()} using {st.session_state.ai}..."
+            ):
+                st.sidebar.write(
+                    f"Creating image for {response['emotion']} using {st.session_state.ai}..."
+                )
                 generated_image = generate_image(prompt)
             if generated_image is not None:
                 st.image(generated_image, caption=response["emotion"])
