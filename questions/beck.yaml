@@ -25,7 +25,7 @@ questions:
       - emotion: "Calm"
         prompt: "There is a warm, soothing glow to the sunlight filtering through the clouds.  The birds are peaceful."
       - emotion: "Indifferent"
-        prompt: "There is some litter blowing across the beach.  The birds don't seem to notice anything.
+        prompt: "There is some litter blowing across the beach.  The birds don't seem to notice anything."
   
   - question: "How do you feel when you think about taking action on climate change?"
     responses:
