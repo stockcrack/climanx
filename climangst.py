@@ -93,19 +93,18 @@ def generate_image_stability(prompt_chain):
         st.sidebar.write(
             f"The prompt was too long and has been shortened to the following: {new_prompt}"
         )
+    endpoint = STABILITY_ENDPOINTS[st.session_state.ai]
+    headers = {"Authorization": f"Bearer {STABILITY_API_KEY}",
+               "Accept": "image/*"}
+    files = {"none": ""}
+    data = {"prompt": new_prompt, "output_format": "jpeg"}
+
     try:
         response = requests.post(
-            STABILITY_ENDPOINTS[st.session_state.ai],
-            headers={
-                "authorization": f"Bearer {STABILITY_API_KEY}",
-                "accept": "image/*",
-            },
-            files={"none": ""},
-            data={
-                "prompt": new_prompt,
-                "output_format": "jpeg",
-                "model": "sd3-large",
-            },
+            endpoint,
+            headers=headers,
+            files=files,
+            data=data,
         )
 
         if response.status_code == 200:
@@ -198,7 +197,8 @@ if (
 
     # Get the list of YAML files
     yaml_files = get_yaml_files(questions_directory)
-    selected_yaml = st.sidebar.selectbox("Choose a questionnaire:", yaml_files, None)
+    selected_yaml = st.sidebar.selectbox(
+        "Choose a questionnaire:", yaml_files, None)
 
     # Load questions and prompts based on the selected YAML file
     if not selected_yaml:
@@ -247,9 +247,7 @@ if (
     st.session_state.questions = question_data["questions"]
     with st.spinner(f"Generating initial image with {st.session_state.ai}..."):
         st.sidebar.write("I am creating an initial image for you to ponder...")
-        generated_image = generate_image(
-            f"Make a {drawing_style} drawing.  {st.session_state.image_history}"
-        )
+        generated_image = generate_image(st.session_state.image_history)
         if generated_image is not None:
             st.session_state.current_image = generated_image
 
@@ -264,7 +262,8 @@ if (
 if st.session_state.current_question < len(st.session_state.questions):
     st.image(st.session_state.current_image, caption="Your current image")
     question = st.session_state.questions[st.session_state.current_question]
-    st.write(f"{st.session_state.current_question}: **{question['question']}**")
+    st.write(
+        f"{st.session_state.current_question}: **{question['question']}**")
 
     # Show options as small images
     ncols = len(question["responses"])
@@ -285,7 +284,7 @@ if st.session_state.current_question < len(st.session_state.questions):
                 st.sidebar.write(
                     f"Creating image for {response['emotion']} using {st.session_state.ai}..."
                 )
-                generated_image = generate_image(prompt)
+                generated_image = generate_image([prompt])
             if generated_image is not None:
                 st.image(generated_image, caption=response["emotion"])
                 st.write(prompt)
@@ -319,7 +318,8 @@ else:
         )
 
     # Save image option
-    st.button("Save Image", on_click=save_image, args=(st.session_state.current_image,))
+    st.button("Save Image", on_click=save_image,
+              args=(st.session_state.current_image,))
 
     st.button("Start Over", on_click=start_over)
 

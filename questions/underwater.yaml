@@ -1,0 +1,74 @@
+initial_image_prompt: "The scene is under the ocean near the surface not far from the shore.  The waves appear from beneath.  Light shines through the surface. You can see the ocean bottom.  There is a small school of fish.   There is also a monarch butterfly in the image."
+questions:
+  - question: "How do you feel about the future of our planet?"
+    responses:
+      - emotion: "Hopeful"
+        prompt: "The water becomes clearer, bright, and gently flowing. The fish shimmer. The butterfly is happy."
+      - emotion: "Pessimistic"
+        prompt: "The water is dark, murky, and turbulent.  It is raining above.  There is a shark lurking behind.  The waves are bigger."
+ 
+  - question: "When you think about climate change, do you believe your actions can make a difference?"
+    responses:
+      - emotion: "Confidently yes"
+        prompt: "The water smooths out, with vibrant colors reflecting hope.  The fish are safe."
+      - emotion: "Doubtful"
+        prompt: "The water is chaotic and has muddy tones.  There is a storm above.  The fish move towards the side."
+
+  - question: "What emotions arise when you consider the impact of climate change on future generations?"
+    responses:
+      - emotion: "Empathy"
+        prompt: "The water is softly glowing and there is a gentle ripple effect.  A gentle orange octopus appears."
+      - emotion: "Anxious"
+        prompt: "The water swirls aggressively and is dark in tone.  A menacing black giant squid appears."
+ 
+  - question: "Do you feel empowered to contribute to environmental change in your community?"
+    responses:
+      - emotion: "Empowered"
+        prompt: "The water is calm, clear, and reflective.   The skies above are clear.   The marine creatures are friendly to each other."
+      - emotion: "Not empowered"
+        prompt: "The water is murky and sluggish.   The marine creates are dispirited, gray, and sluggish.  The sky above is dark."
+
+  - question: "What is your primary emotion when thinking about climate change?"
+    responses:
+      - emotion: "Hope"
+        prompt: "The water is bright and flows smoothly.   There is abundant vibrant underwater plant life.  The fish jump."
+      - emotion: "Fear"
+        prompt: "The water is dark and ripples aggressively.  The marine creatures attack each other.  The plant life is perturbed by the currents and the plants are dying."
+
+  - question: "How do you cope with the uncertainties of climate change?"
+    responses:
+      - emotion: "Positive coping"
+        prompt: "The water is vibrant.   The marine life is colorful, almost psychedelic."
+      - emotion: "Avoidant coping"
+        prompt: "The water is cloudy and stagnant.  The marine life is motionless and all the creatures avoid each other."
+
+  - question: "Do you believe that collective action can overcome climate challenges?"
+    responses:
+      - emotion: "Skeptical"
+        prompt: "The water is separated into fragmented, swirling pools"
+      - emotion: "Hopeful"
+        prompt: "The water is calm.  The marine creatures are friendly to each other in a single group."
+
+  - question: "How do you feel about the progress being made in fighting climate change?"
+    responses:
+      - emotion: "Positive"
+        prompt: "The water is clear and sparkles with light.  The creatures are smiling."
+      - emotion: "Negative"
+        prompt: "The water is shadowy and turbulent.  The creatures are ugly and scared."
+
+  - question: "Do you find peace in nature despite concerns about climate change?"
+    responses:
+      - emotion: "Peace"
+        prompt: "The water is serene with gentle, lapping waves and blue light.  The creatures are peaceful."
+      - emotion: "Distressed"
+        prompt: "The water churns with restless energy.  The light is broken.  The creatures move in all directions."
+        
+  - question: "How do you envision the future for the next generation regarding the environment?"
+    responses:
+      - emotion: "Optimistic"
+        prompt: "The water flows smoothly with a bright, clear hue.  The creatures are cavorting with joy!"
+      - emotion: "Pessimistic"
+        prompt: "The water is dark and stormy with huge waves and a thunderstorm above.  The creatures are terrified.  The plant life is dark and disturbed."
+      
+
+      
