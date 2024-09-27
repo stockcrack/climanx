@@ -169,12 +169,12 @@ def start_over():
 # Display Butterfly Assistant
 st.sidebar.image("butterfly.png", use_column_width=True)
 st.sidebar.write(
-    "Hi! I'm your Butterfly Assistant. I'll guide you through this experience."
+    "Hi! I'm Max Vlinder, your climate guide. I'll be with you throughout this experience."
 )
 
 # Set up the UI for YAML file selection
-st.title("ClimAnx")
-st.subheader("Explore your climate anxiety through AI-generated images.")
+st.title("VlindGuide")
+st.subheader("Explore your feelings about climate change")
 
 # Initialize session state
 if (
@@ -215,7 +215,7 @@ if (
     drawing_style = st.sidebar.selectbox(
         "Choose a drawing style:",
         [
-            "Photo",
+            "Photorealistic",
             "Cartoon",
             "Abstract",
             "Expressionist",
@@ -223,11 +223,31 @@ if (
             "Impressionist",
             "Naturalist",
             "Ukiyo-e",
+            "Shui-mo hua"
             "Medieval",
             "Futurist",
             "Fantasy",
             "Fauvist",
+            "Renaissance",
+            "Baroque",
+            "Neoclassical",
+            "Romantic",
+            "Surrealist",
+            "Street Art",
             "Comic Strip",
+            "Aboriginal Art",
+            "Abstract Expressionist",
+            "Tibetan Thangka",
+            "Pop Art",
+            "Op Art",
+            "Pointillist",
+            "Minimalist",
+            "Art Nouveau",
+            "Art Deco",
+            "Maori Kowhaiwhai",
+            "Korean Minhwa",
+            "Persian Miniature",
+            "Indian Mugham",
         ],
         None,
     )
@@ -254,7 +274,7 @@ if (
     st.sidebar.write("Here is an image to contemplate to start your journey.")
     st.sidebar.write(st.session_state.initial_prompt)
     st.sidebar.write(
-        "Let's begin!  After every question, select the emotion that resonates with you the most."
+        "Let's begin!  After every question, select the emotion and image that resonates with you the most."
     )
 
 # Display current question
