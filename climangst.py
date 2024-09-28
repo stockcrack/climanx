@@ -166,6 +166,10 @@ def start_over():
     st.session_state.current_question = -1
 
 
+def set_show_prompts(value):
+    st.session_state.show_prompts = value
+
+
 # Display Butterfly Assistant
 st.sidebar.image("butterfly.png", use_column_width=True)
 st.sidebar.write(
@@ -256,7 +260,12 @@ if (
         st.stop()
 
     st.session_state.drawing_style = drawing_style.lower()
-    st.session_state.current_question = 0
+
+    st.session_state.show_prompts = st.sidebar.toggle(
+        "Show prompts", False, on_change=set_show_prompts)
+
+    st.session_state.current_question = 1
+    st.session_state.show_prompt = False
     st.session_state.initial_prompt = (
         f'Make a {drawing_style} drawing.  {question_data["initial_image_prompt"]}'
     )
@@ -272,7 +281,8 @@ if (
             st.session_state.current_image = generated_image
 
     st.sidebar.write("Here is an image to contemplate to start your journey.")
-    st.sidebar.write(st.session_state.initial_prompt)
+    if st.session_state.show_prompts:
+        st.sidebar.write(st.session_state.initial_prompt)
     st.sidebar.write(
         "Let's begin!  After every question, select the emotion and image that resonates with you the most."
     )
@@ -283,7 +293,7 @@ if st.session_state.current_question < len(st.session_state.questions):
     st.image(st.session_state.current_image, caption="Your current image")
     question = st.session_state.questions[st.session_state.current_question]
     st.write(
-        f"{st.session_state.current_question}: **{question['question']}**")
+        f"## {st.session_state.current_question}: **{question['question']}**")
 
     # Show options as small images
     ncols = len(question["responses"])
@@ -291,6 +301,9 @@ if st.session_state.current_question < len(st.session_state.questions):
     cols = st.columns(ncols)
     for i, response in enumerate(question["responses"]):
         with cols[i]:
+            generated_image = None
+            emo = response["emotion"]
+
             prompt = (
                 base_prompt
                 + " "
@@ -306,14 +319,16 @@ if st.session_state.current_question < len(st.session_state.questions):
                 )
                 generated_image = generate_image([prompt])
             if generated_image is not None:
-                st.image(generated_image, caption=response["emotion"])
-                st.write(prompt)
-                emo = response["emotion"]
                 st.button(
                     emo,
                     on_click=select_image,
                     args=(emo, prompt, generated_image, response),
+                    type="primary"
                 )
+                st.image(generated_image, caption=response["emotion"])
+                if st.session_state.show_prompt:
+                    st.write(prompt)
+
             else:
                 st.error("An error occurred while generating the image.")
 

@@ -1,0 +1,74 @@
+initial_image_prompt: "The scene is in a temperate deciduous forest.  The trees are lush.  Light shines through the canopy to the densely planted ground. There are some birds, squirrels, and other small animals.   There is also a single monarch butterfly in the image."
+questions:
+  - question: "How do you feel about the future of our planet?"
+    responses:
+      - emotion: "Hopeful"
+        prompt: "The forest is clear and bright with a gentle breeze. The birds sing.  The woodland creatures are playing. The butterfly is happy."
+      - emotion: "Pessimistic"
+        prompt: "The forest is dark with little light.  A storm is coming.  There is an aggressive bear and the animals are frightened."
+ 
+  - question: "When you think about climate change, do you believe your actions can make a difference?"
+    responses:
+      - emotion: "Confidently yes"
+        prompt: "The forest is bursting with energy, with vibrant colors reflecting hope.  The animals are safe."
+      - emotion: "Doubtful"
+        prompt: "The forest is chaotic and has grayish tones.  There is a storm above.  The animals take shelter."
+
+  - question: "What emotions arise when you consider the impact of climate change on future generations?"
+    responses:
+      - emotion: "Empathy"
+        prompt: "The forest is softly glowing and the leaves are rippling.  A magnificent and graceful stag appears."
+      - emotion: "Anxious"
+        prompt: "The leaves and branches swirl aggressively and are dark in tone.  A menacing panther appears."
+ 
+  - question: "Do you feel empowered to contribute to environmental change in your community?"
+    responses:
+      - emotion: "Empowered"
+        prompt: "The forest is calm.   The skies above are clear.   The forest creatures are friendly to each other."
+      - emotion: "Not empowered"
+        prompt: "The forest is in shadow. There are malignant growths on the trees.   The forest creates are dispirited and sluggish.  The sky above is dark."
+
+  - question: "What is your primary emotion when thinking about climate change?"
+    responses:
+      - emotion: "Hope"
+        prompt: "The forest is bright and cheerful.   There is abundant vibrant plant life.  The animals play happily with each other."
+      - emotion: "Fear"
+        prompt: "The forest is dark and a strong wind blows.  The forest creatures attack each other.  The plant life is perturbed by the wind and the plants are dying."
+
+  - question: "How do you cope with the uncertainties of climate change?"
+    responses:
+      - emotion: "Positive coping"
+        prompt: "The forest is vibrant.   The forest life is colorful, almost psychedelic."
+      - emotion: "Avoidant coping"
+        prompt: "The forest is droopy and sad.  The animals are motionless and all the creatures avoid each other."
+
+  - question: "Do you believe that collective action can overcome climate challenges?"
+    responses:
+      - emotion: "Skeptical"
+        prompt: "The forest is separated into fragmented, small copses"
+      - emotion: "Hopeful"
+        prompt: "The forest is calm.  The creatures are friendly to each other in a single group."
+
+  - question: "How do you feel about the progress being made in fighting climate change?"
+    responses:
+      - emotion: "Positive"
+        prompt: "The forest is clear and sparkles with light.  The creatures are smiling."
+      - emotion: "Negative"
+        prompt: "The forest is shadowy.  The creatures are ugly and scared."
+
+  - question: "Do you find peace in nature despite concerns about climate change?"
+    responses:
+      - emotion: "Peace"
+        prompt: "The forest is serene with green and blue tones.  The creatures are peaceful."
+      - emotion: "Distressed"
+        prompt: "The forest churns with restless energy.  The light is broken.  The creatures move in all directions."
+        
+  - question: "How do you envision the future for the next generation regarding the environment?"
+    responses:
+      - emotion: "Optimistic"
+        prompt: "The forest is smooth with a bright, clear hue.  The creatures are cavorting with joy!"
+      - emotion: "Pessimistic"
+        prompt: "The forest is dark and stormy with a thunderstorm above.  The creatures are terrified.  The plant life is dark and disturbed."
+      
+
+      

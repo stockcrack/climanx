@@ -1,2 +1,2 @@
-# climanx
-Prototype of the ClimAnx climate anxiety art project
+# VlindGuide
+Prototype of the VlindGuide educational program for managing climate anxiety
