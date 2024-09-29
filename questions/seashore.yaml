@@ -1,4 +1,4 @@
-initial_image_prompt: "There is a sandy shore with waves lapping at the edge, and a few clouds in the sky. There is a beachhouse, and a sailboat on the water, and birds in the sky.  The sun is shining, casting a glow over the scene."
+initial_image_prompt: "There is a sandy shore on the left with waves lapping at the edge, and a few clouds in the sky. There is a beachhouse, and a sailboat on the water, and birds in the sky.  The sun is shining, casting a glow over the scene.  A monarch butterfly flutters near the beachhouse."
 questions:
   - question: "Do you ever experience numbness or tingling when you think about climate change?"
     responses:

@@ -52,9 +52,9 @@ questions:
   - question: "How do you feel about the progress being made in fighting climate change?"
     responses:
       - emotion: "Positive"
-        prompt: "The forest is clear and sparkles with light.  The creatures are smiling."
+        prompt: "The forest is clear and sparkles with light.  The creatures are smiling. Everything is colorful."
       - emotion: "Negative"
-        prompt: "The forest is shadowy.  The creatures are ugly and scared."
+        prompt: "The forest is shadowy.  The creatures are ugly and scared.  A looming presence threatens the forest."
 
   - question: "Do you find peace in nature despite concerns about climate change?"
     responses:

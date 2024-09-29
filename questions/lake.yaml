@@ -1,4 +1,4 @@
-initial_image_prompt: "A lake surrounded by greenery. The water is calm, reflecting the sky above, and a few birds are flying in the distance."
+initial_image_prompt: "A lake surrounded by greenery. The water is calm, reflecting the sky above, and a few birds are flying in the distance.  A monarch butterfly flutters near the water's edge."
 questions:
   - question: "How often do you feel nervous or jittery when thinking about climate change?"
     responses:
